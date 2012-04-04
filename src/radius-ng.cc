@@ -219,14 +219,12 @@ public:
     return scope.Close(Integer::New(0));
   }
 
-  static int EIO_Auth(eio_req * req) {
+  static void EIO_Auth(eio_req * req) {
     struct RadiusRequest * rad_req = (Radius::RadiusRequest*)req->data;
     Radius * r = rad_req->r;
 
     rad_req->result = rc_auth(r->rh, 0, r->send, &(r->received), r->msg);
- 
-    return 0;
-  }
+   }
 
   static int EIO_AfterAuth(eio_req * req) {
     struct RadiusRequest * rad_req = (Radius::RadiusRequest*)req->data;
@@ -313,13 +311,11 @@ public:
     return scope.Close(Integer::New(0));
   }
 
-  static int EIO_Acct(eio_req * req) {
+  static void EIO_Acct(eio_req * req) {
     struct RadiusRequest * rad_req = (Radius::RadiusRequest*)req->data;
     Radius * r = rad_req->r;
 
     rad_req->result = rc_acct(r->rh, 0, r->send);
- 
-    return 0;
   }
 
   static int EIO_AfterAcct(eio_req * req) {
